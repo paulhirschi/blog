@@ -1,0 +1,42 @@
+---
+title: "Selection Bias, or Selecting on the Dependent Variable"
+description: "Why Correlation Requires Variation"
+author: "Paul H"
+date: "2024-04-16"
+categories: [statistics, fallacy]
+image: "image.jpg"
+draft: true
+---
+
+This is a post with executable code.
+
+```python
+import pandas as pd
+
+df = pd.DataFrame()
+df
+```
+
+For a demonstration of a line plot on a polar axis, see @fig-polar.
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+$\theta=\frac{1}{2}\sum$
+
+$$\theta=\frac{1}{2}\sum$$

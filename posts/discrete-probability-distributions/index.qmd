@@ -1,0 +1,79 @@
+---
+title: "Discrete Distributions for Binary Data"
+description: "Binomial, Geometric, Negative Binomial, and Hypergeometric."
+author: "Paul H"
+date: "2024-04-16"
+categories: [statistics]
+---
+
+```{python}
+#| echo: false
+import scipy.stats
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+plt_aspect_wide = 16/10
+plt_aspect_tall = 10/16
+plt_aspect_square = 1/1
+plt_height = 5
+
+def get_plt_dems(ratio='w', height=5):
+    plt_aspect_wide = 16 / 10
+    plt_aspect_tall = 10 / 16
+    plt_aspect_square = 1 / 1
+
+    if ratio == 'w':
+        return (height * plt_aspect_wide, height)
+    if ratio == 't':
+        return (height * plt_aspect_tall, height)
+    if ratio == 's':
+        return (height * plt_aspect_square, height)
+
+colors = [
+    '#0755db',
+    '#c237be',
+    '#ff2b86',
+    '#ff6749',
+    '#ffa600',
+]
+
+gray = '#696e85'
+
+palette = sns.color_palette(colors)
+plt.style.use("ggplot")
+
+```
+
+## Definitions:
+
+* **Discrete Variable:**
+* **Random Variable:**
+* **Probability Distribution:**
+
+```{python}
+from scipy.stats import binom
+
+plot_args = {
+    'legend': False,
+    'linewidth': 0.5,
+    'edgecolor': 'white',
+    'width': 1
+}
+
+n, p = 10, 0.1667
+scale = 0.0001
+
+x = np.arange(binom.ppf(scale, n, p),
+              binom.ppf(1 - scale, n, p), dtype=np.int8)
+
+fig, ax = plt.subplots(figsize=get_plt_dems())
+plt.suptitle('Binomial Distribution\nn=10, p=0.1667')
+colors = [colors[0] if x >= 4 else gray for x in x]
+sns.barplot(x=x, y=binom.pmf(x, n, p), ax=ax, palette=colors, hue=x, **plot_args)
+ax.set_ylabel('Probability')
+ax.set_xlabel('Number of 6s')
+fig.tight_layout()
+plt.show()
+```

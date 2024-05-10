@@ -1,0 +1,9 @@
+---
+title: "Regression for Prediction"
+description: "This is a test of the project stuff"
+author: "Paul H"
+date: "5/22/2021"
+draft: true
+---
+
+This is a test.

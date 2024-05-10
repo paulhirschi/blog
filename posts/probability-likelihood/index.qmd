@@ -1,0 +1,9 @@
+---
+title: "Probability and Likelihood"
+description: "Probability is not Likelihood. How are they different, and how to you successfully use each."
+author: "Paul H"
+date: "2024-04-16"
+categories: [statistics]
+image: "image.jpg"
+draft: true
+---
