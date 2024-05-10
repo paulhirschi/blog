@@ -3,5 +3,5 @@
 .quarto
 _site
 _freeze
-
+.venv
 /.quarto/
