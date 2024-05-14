@@ -39,19 +39,19 @@ red = palette_colors[2]
 yellow = palette_colors[4]
 
 palette = sns.color_palette(palette_colors)
-sns.set_theme(palette=palette)
-plt.style.use("ggplot")
+sns.set_theme(style='whitegrid', palette=palette)
+#plt.style.use("ggplot")
 
 title_font = {
     'fontfamily': 'sans-serif',
-    'fontsize': 'xx-large',
+    'fontsize': 'x-large',
     'horizontalalignment': 'center',
     'verticalalignment': 'top',
 }
 
 subtitle_font = {
     'fontfamily': 'sans-serif',
-    'fontsize': 'large',
+    'fontsize': 'medium',
     'horizontalalignment': 'center',
     'verticalalignment': 'top',
     'alpha': 0.7,
@@ -59,12 +59,27 @@ subtitle_font = {
 
 
 ```
+![](dice.jpg)
+
+## Intro:
+
+A discrete distribution is a probability distribution that describes the likelihood of outcomes for a discrete random variable. In other words, it gives the possible values that the variable can take, and the probability associated with each of those values.
+
+Before we continue, let's center on some definitions.
 
 ## Definitions:
 
-* **Discrete Variable:**
-* **Random Variable:**
-* **Probability Distribution:**
+**Random Variable:** A variable for which we don't know the next value. Think of drawing a card from a standard deck. This variable is random, because we don't know the discrete value of the next card to be drawn.
+
+**Discrete Variable:** A variable which can only take a known and finite number of values. This variable is not measured on a continuous scale (e.g. speed, temperature, height), but rather is categorical in nature (e.g. gender, race, rating, class).
+
+**Binary Variable:** A special case of discrete variable - a variable which can only take 1 of 2 values. A coin (heads or tails), a die (6 or not 6), a rocket launch (go or no-go), etc.
+
+When measuring a binary random variable in a probability distribution, we usually speak in terms of a [Bernoulli trial](https://en.wikipedia.org/wiki/Bernoulli_trial). We label our desired outcome, say landing on heads when flipping a coin, as the "success" state, and the other state as "failure".
+
+**Probability Distribution:** A statistical instrument that allows us to determine probabilities and likelihoods for a random variable.
+
+
 
 ```{python}
 #| echo: false
@@ -76,6 +91,7 @@ scale = 0.0001
 
 x = np.arange(binom.ppf(scale, n, p),
               binom.ppf(1 - scale, n, p), dtype=np.int8)
+y = binom.pmf(x, n, p)
 
 fig, ax = plt.subplots(figsize=get_plt_dems())
 # plt.suptitle('Binomial Distribution\nn=10, p=0.1667')
@@ -87,11 +103,19 @@ plot_args = {
     'legend': False,
     'width': 0.9
 }
-sns.barplot(x=x, y=binom.pmf(x, n, p), **plot_args)
+sns.barplot(x=x, y=y, **plot_args)
 plt.text(3, 0.4, 'Binomial Distribution', **title_font)
 plt.text(3,0.37, f'n = {n}, p = {p}', **subtitle_font)
 ax.set_ylabel('Probability')
 ax.set_xlabel('Number of 6s')
 fig.tight_layout()
 plt.show()
+
+vals = zip(x,y)
+get_sum = 0
+for one, two in vals:
+    if one >= 4:
+        get_sum += two
+
+print(get_sum)
 ```
