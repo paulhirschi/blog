@@ -14,7 +14,7 @@ website:
 #        href: https://twitter.com
 format:
   html:
-    theme: zephyr
+    theme: sandstone
     css: styles.css
 
 
