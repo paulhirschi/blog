@@ -4,6 +4,7 @@ description: "Binomial, Geometric, Negative Binomial, and Hypergeometric."
 author: "Paul H"
 date: "2024-04-16"
 categories: [statistics]
+image: 'dice.jpg'
 ---
 
 ```{python}
@@ -59,7 +60,6 @@ subtitle_font = {
 
 
 ```
-![](dice.jpg)
 
 ## Intro:
 
