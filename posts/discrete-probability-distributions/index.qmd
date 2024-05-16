@@ -1,10 +1,9 @@
 ---
-title: "Discrete Distributions for Binary Data"
+title: "Discrete Distributions & Binary Data"
 description: "Binomial, Geometric, Negative Binomial, and Hypergeometric."
-author: "Paul H"
 date: "2024-04-16"
-categories: [statistics]
-image: 'dice.jpg'
+categories: ["statistics"]
+image: "dice.jpg"
 ---
 
 ```{python}
@@ -60,7 +59,6 @@ subtitle_font = {
 
 
 ```
-
 ## Intro:
 
 A discrete distribution is a probability distribution that describes the likelihood of outcomes for a discrete random variable. In other words, it gives the possible values that the variable can take, and the probability associated with each of those values.
@@ -69,17 +67,96 @@ Before we continue, let's center on some definitions.
 
 ## Definitions:
 
-**Random Variable:** A variable for which we don't know the next value. Think of drawing a card from a standard deck. This variable is random, because we don't know the discrete value of the next card to be drawn.
+**Random Variable:** A variable for which we don't know the next value. Think of drawing a card from a standard deck. This variable is random, because we don't know the value of the next card to be drawn.
 
 **Discrete Variable:** A variable which can only take a known and finite number of values. This variable is not measured on a continuous scale (e.g. speed, temperature, height), but rather is categorical in nature (e.g. gender, race, rating, class).
 
-**Binary Variable:** A special case of discrete variable - a variable which can only take 1 of 2 values. A coin (heads or tails), a die (6 or not 6), a rocket launch (go or no-go), etc.
+**Binary Variable:** A special case of discrete variable - a variable which can only take 1 of 2 values.
 
-When measuring a binary random variable in a probability distribution, we usually speak in terms of a [Bernoulli trial](https://en.wikipedia.org/wiki/Bernoulli_trial). We label our desired outcome, say landing on heads when flipping a coin, as the "success" state, and the other state as "failure".
+* A coin (heads or tails)
+* A die (6 or not 6)
+* A rocket launch (go or no-go)
+* A scoring attempt (made or missed)
+
+When measuring a binary random variable in a probability distribution, we usually speak in terms of a [Bernoulli trial](https://en.wikipedia.org/wiki/Bernoulli_trial). A Bernoulli trial is a random experiment with only 2 possible outcomes, success or failure. The probabilities associated with a success or failure must be fixed across all trials.
 
 **Probability Distribution:** A statistical instrument that allows us to determine probabilities and likelihoods for a random variable.
 
+### Fair Bernoulli Trials
 
+To make things more concrete, let's look at a probability distribution for a single Bernoulli trial - a coin flip (remember, a Bernoulli trial is an instance of a Binary random variable - it can only take 1 of 2 possible values). A fair coin has a 50% chance of landing on heads (we'll call this a success), and 50% chance of landing on tails.
+
+```{python}
+#| echo: false
+
+from scipy.stats import binom
+n, p = 1, 0.5
+scale = 0.001
+
+x = np.arange(binom.ppf(scale, n, p),
+              binom.ppf(1 - scale, n, p), dtype=np.int8)
+x = [0,1]
+y = binom.pmf(x, n, p)
+
+fig, ax = plt.subplots(figsize=get_plt_dems())
+# plt.suptitle('Binomial Distribution\nn=10, p=0.1667')
+colors = [blue if x >= 4 else grey for x in x]
+plot_args = {
+    'ax': ax,
+}
+
+sns.barplot(x=x, y=y, **plot_args)
+
+ax.set_ylabel('Probability')
+ax.set_xlabel('Number of Successes')
+
+plt.text(0.5, 0.625, 'Binomial Distribution', **title_font)
+plt.text(0.5,0.575, f'n = {n}, p = {p}', **subtitle_font)
+
+fig.tight_layout()
+plt.show()
+```
+
+As we can see, we have a 50% chance (0.5) of getting 0 successes, and a 50% chance (0.5) of getting 1 success.
+
+We also used a **Binomial Distribution** to visualize this probability distribution. 
+
+Let's take this a step further. What does a probability distribution look like for 10 coin flips. How many successes (heads) we're most likely to get after 10 experiments?
+
+```{python}
+#| echo: false
+
+from scipy.stats import binom
+n, p = 10, 0.5
+scale = 0.0001
+
+x = np.arange(binom.ppf(scale, n, p),
+              binom.ppf(1 - scale, n, p), dtype=np.int8)
+              
+x = np.arange(1, n+1, 1)
+
+y = binom.pmf(x, n, p)
+
+fig, ax = plt.subplots(figsize=get_plt_dems())
+# plt.suptitle('Binomial Distribution\nn=10, p=0.1667')
+colors = [blue if x >= 4 else grey for x in x]
+plot_args = {
+    'ax': ax,
+}
+
+sns.barplot(x=x, y=y, **plot_args)
+
+ax.set_ylabel('Probability')
+ax.set_xlabel('Number of Successes')
+
+plt.text(4.75, 0.31, 'Binomial Distribution', **title_font)
+plt.text(4.75, 0.285, f'n = {n}, p = {p}', **subtitle_font)
+
+fig.tight_layout()
+plt.show()
+```
+
+Since it's a fair coin, with a 50% chance of success, we're most likely to see 5 out of 10 successes.
 
 ```{python}
 #| echo: false

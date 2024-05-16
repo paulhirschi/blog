@@ -2,3 +2,12 @@
 main.content section {
     margin-top: 2em;
 }
+
+figure .figure-img {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#title-block-header {
+    margin-bottom: 3em;
+}
